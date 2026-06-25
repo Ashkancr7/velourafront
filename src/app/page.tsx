@@ -9,7 +9,7 @@ const COLLECTIONS = [
   { id: 2, title: "Sleepwear", image: "/cat2.png", href: "/shop" },
   { id: 3, title: "Bodysuits", image: "/cat3.png", href: "/shop" },
   { id: 4, title: "Lingerie", image: "/cat1.png", href: "/shop" },
-  { id: 5, title: "Bodysuits", image: "/cat3.png", href: "/shop" },
+ 
 
 ];
 

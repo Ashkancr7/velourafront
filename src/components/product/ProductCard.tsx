@@ -39,17 +39,17 @@ export default function ProductCard({ product }: Props) {
           )}
 
           {/* دکمه افزودن به سبد با استایل جدید */}
-          {/* <div className="absolute bottom-0 left-0 right-0 p-3 bg-white/90 backdrop-blur-md translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
+          <div className="absolute bottom-0 left-0 right-0 p-3 bg-white/90 backdrop-blur-md translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                addToCart(product);
-              }}
+              // onClick={(e) => {
+              //   e.preventDefault();
+              //   addToCart(product);
+              // }}
               className="w-full bg-[#BFA46F] text-white py-2.5 rounded-xl text-sm font-medium hover:bg-[#a88c55] hover:shadow-lg hover:shadow-[#BFA46F]/30 transition-all duration-300"
             >
               افزودن سریع به سبد
             </button>
-          </div> */}
+          </div>
         </div>
       </Link>
 
