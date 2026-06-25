@@ -47,7 +47,7 @@ export default function ProductCard({ product }: Props) {
               // }}
               className="w-full bg-[#BFA46F] text-white py-2.5 rounded-xl text-sm font-medium hover:bg-[#a88c55] hover:shadow-lg hover:shadow-[#BFA46F]/30 transition-all duration-300"
             >
-              افزودن سریع به سبد
+              افزودن به سبد
             </button>
           </div>
         </div>
