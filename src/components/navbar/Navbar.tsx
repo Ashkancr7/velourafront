@@ -110,10 +110,9 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* ===== Bottom Navigation (Mobile) ===== */}
-           {/* ===== Modern Glassmorphic Bottom Navigation (Mobile) ===== */}
-      <div className="md:hidden fixed bottom-5 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
-        <nav className="pointer-events-auto bg-white/85 backdrop-blur-xl border border-gray-200/50 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-2xl px-2 h-16 flex items-center justify-between w-full max-w-sm">
+            {/* ===== Modern Full-Width Bottom Navigation (Mobile) ===== */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-50">
+        <nav className="bg-white/85 backdrop-blur-xl border-t border-gray-200/50 shadow-[0_-8px_30px_rgb(0,0,0,0.08)] rounded-t-2xl px-6 h-[76px] pb-2 pt-1 flex items-center justify-between w-full">
           
           {/* خانه */}
           <Link href="/" className="relative flex flex-col items-center justify-center w-16 h-14 rounded-xl transition-all duration-300">
@@ -184,6 +183,7 @@ export default function Navbar() {
 
         </nav>
       </div>
+
 
     </>
   );
