@@ -5,13 +5,12 @@ import ProductCard from "@/components/product/ProductCard";
 import { ChevronLeft } from "lucide-react";
 
 const COLLECTIONS = [
-  { id: 1, title: "Lingerie", image: "/cat1.png", href: "/shop" },
-  { id: 2, title: "Sleepwear", image: "/cat2.png", href: "/shop" },
-  { id: 3, title: "Bodysuits", image: "/cat3.png", href: "/shop" },
-  { id: 4, title: "Lingerie", image: "/cat1.png", href: "/shop" },
- 
-
+  { id: 1, title: "لباس زنانه", image: "/cat1.webp", href: "/shop" },
+  { id: 2, title: "لباس زیر", image: "/cat2.webp", href: "/shop" },
+  { id: 3, title: "بادی", image: "/cat3.webp", href: "/shop" },
+  { id: 4, title: "لباس خواب ", image: "/cat4.webp", href: "/shop" },
 ];
+
 
 export default function HomePage() {
   const featured = products.slice(0, 4);
@@ -19,7 +18,7 @@ export default function HomePage() {
   return (
     <main>
       {/* HERO SECTION */}
-      <section className="relative h-[85vh] md:h-[95vh] flex items-center justify-center text-center">
+      <section className="relative h-[80vh] md:h-[95vh] flex items-center justify-center text-center">
       {/* تصویر پس‌زمینه */}
       <Image
         src="/hero.png"

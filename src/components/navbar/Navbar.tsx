@@ -111,40 +111,50 @@ export default function Navbar() {
       </header>
 
       {/* ===== Bottom Navigation (Mobile) ===== */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-50 px-2 pb-safe shadow-[0_-4px_15px_rgba(0,0,0,0.05)]">
-        <div className="flex items-center justify-around h-16">
+           {/* ===== Modern Glassmorphic Bottom Navigation (Mobile) ===== */}
+      <div className="md:hidden fixed bottom-5 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
+        <nav className="pointer-events-auto bg-white/85 backdrop-blur-xl border border-gray-200/50 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-2xl px-2 h-16 flex items-center justify-between w-full max-w-sm">
           
           {/* خانه */}
-          <Link href="/" className="flex flex-col items-center gap-1 p-2 w-16">
+          <Link href="/" className="relative flex flex-col items-center justify-center w-16 h-14 rounded-xl transition-all duration-300">
+            {pathname === "/" && (
+              <span className="absolute inset-0 bg-[#BFA46F]/10 rounded-xl transition-all duration-300" />
+            )}
             <Home 
               size={22} 
               strokeWidth={pathname === "/" ? 2 : 1.5} 
-              className={pathname === "/" ? "text-[#BFA46F]" : "text-gray-500"} 
+              className={cn("relative z-10 transition-all duration-300", pathname === "/" ? "text-[#BFA46F] -translate-y-0.5" : "text-gray-400")} 
             />
-            <span className={cn("text-[10px]", pathname === "/" ? "text-[#BFA46F] font-medium" : "text-gray-500")}>
+            <span className={cn("relative z-10 text-[10px] transition-all duration-300", pathname === "/" ? "text-[#BFA46F] font-medium mt-1" : "text-gray-400 opacity-80 mt-0.5")}>
               خانه
             </span>
           </Link>
 
           {/* فروشگاه */}
-          <Link href="/shop" className="flex flex-col items-center gap-1 p-2 w-16">
+          <Link href="/shop" className="relative flex flex-col items-center justify-center w-16 h-14 rounded-xl transition-all duration-300">
+            {pathname === "/shop" && (
+              <span className="absolute inset-0 bg-[#BFA46F]/10 rounded-xl transition-all duration-300" />
+            )}
             <Store 
               size={22} 
               strokeWidth={pathname === "/shop" ? 2 : 1.5} 
-              className={pathname === "/shop" ? "text-[#BFA46F]" : "text-gray-500"} 
+              className={cn("relative z-10 transition-all duration-300", pathname === "/shop" ? "text-[#BFA46F] -translate-y-0.5" : "text-gray-400")} 
             />
-            <span className={cn("text-[10px]", pathname === "/shop" ? "text-[#BFA46F] font-medium" : "text-gray-500")}>
+            <span className={cn("relative z-10 text-[10px] transition-all duration-300", pathname === "/shop" ? "text-[#BFA46F] font-medium mt-1" : "text-gray-400 opacity-80 mt-0.5")}>
               فروشگاه
             </span>
           </Link>
 
           {/* سبد خرید */}
-          <Link href="/cart" className="flex flex-col items-center gap-1 p-2 w-16 relative">
-            <div className="relative">
+          <Link href="/cart" className="relative flex flex-col items-center justify-center w-16 h-14 rounded-xl transition-all duration-300">
+            {pathname === "/cart" && (
+              <span className="absolute inset-0 bg-[#BFA46F]/10 rounded-xl transition-all duration-300" />
+            )}
+            <div className="relative z-10">
               <ShoppingBag 
                 size={22} 
                 strokeWidth={pathname === "/cart" ? 2 : 1.5} 
-                className={pathname === "/cart" ? "text-[#BFA46F]" : "text-gray-500"} 
+                className={cn("transition-all duration-300", pathname === "/cart" ? "text-[#BFA46F] -translate-y-0.5" : "text-gray-400")} 
               />
               {cartItems.length > 0 && (
                 <span className="absolute -top-1.5 -right-2 bg-[#BFA46F] text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-bold shadow-sm">
@@ -152,25 +162,29 @@ export default function Navbar() {
                 </span>
               )}
             </div>
-            <span className={cn("text-[10px]", pathname === "/cart" ? "text-[#BFA46F] font-medium" : "text-gray-500")}>
+            <span className={cn("relative z-10 text-[10px] transition-all duration-300", pathname === "/cart" ? "text-[#BFA46F] font-medium mt-1" : "text-gray-400 opacity-80 mt-0.5")}>
               سبد
             </span>
           </Link>
 
           {/* پروفایل */}
-          <Link href="/profile" className="flex flex-col items-center gap-1 p-2 w-16">
+          <Link href="/profile" className="relative flex flex-col items-center justify-center w-16 h-14 rounded-xl transition-all duration-300">
+            {pathname === "/profile" && (
+              <span className="absolute inset-0 bg-[#BFA46F]/10 rounded-xl transition-all duration-300" />
+            )}
             <User 
               size={22} 
               strokeWidth={pathname === "/profile" ? 2 : 1.5} 
-              className={pathname === "/profile" ? "text-[#BFA46F]" : "text-gray-500"} 
+              className={cn("relative z-10 transition-all duration-300", pathname === "/profile" ? "text-[#BFA46F] -translate-y-0.5" : "text-gray-400")} 
             />
-            <span className={cn("text-[10px]", pathname === "/profile" ? "text-[#BFA46F] font-medium" : "text-gray-500")}>
+            <span className={cn("relative z-10 text-[10px] transition-all duration-300", pathname === "/profile" ? "text-[#BFA46F] font-medium mt-1" : "text-gray-400 opacity-80 mt-0.5")}>
               پروفایل
             </span>
           </Link>
 
-        </div>
-      </nav>
+        </nav>
+      </div>
+
     </>
   );
 }
