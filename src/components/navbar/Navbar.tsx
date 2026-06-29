@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 const NAV_LINKS = [
+  { href: "/", label: "صفحه اصلی" },
   { href: "/shop", label: "فروشگاه" },
   { href: "/new-arrivals", label: "جدیدترین‌ها" },
   { href: "/collections", label: "ست‌های خاص" },

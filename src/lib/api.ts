@@ -1,64 +1,42 @@
-export interface Product {
-  id: string;
-  slug: string;
+// file: lib/api.ts
 
-  name: string;
-  description: string;
+import { Product } from '@/types/api'; // تایپ‌ها رو از فایلی که ساختی ایمپورت کن
 
-  price: number;
+const API_BASE_URL = 'https://api.theveloura.ir/api'; // آدرس بک‌اند جنگوی شما
 
-  image: string;
-  hoverImage?: string;
+// یک تابع کمکی برای fetch کردن دیتا
+async function fetchAPI<T>(endpoint: string): Promise<T> {
+  const url = `${API_BASE_URL}${endpoint}`;
+  
+  try {
+    const response = await fetch(url, {
+      // cache: 'no-store' // در حین توسعه برای دیدن تغییرات لحظه‌ای خوبه
+    });
 
-  category: string;
+    if (!response.ok) {
+      throw new Error(`Failed to fetch API: ${response.statusText}`);
+    }
 
-  sizes: string[];
-
-  stock: number;
-
-  featured?: boolean;
+    const data = await response.json();
+    return data as T;
+  } catch (error) {
+    console.error("API Fetch Error:", error);
+    // در دنیای واقعی اینجا رو باید بهتر مدیریت کنی، مثلا با نمایش یک پیام خطا به کاربر
+    throw error;
+  }
 }
 
-export const products: Product[] = [
-  {
-    id: "1",
-    slug: "velvet-lace-set",
-    name: "Velvet Lace Set",
-    description: "Elegant velvet lace lingerie set designed for comfort and luxury.",
-    price: 850000,
-    image: "/p1.png",
-    hoverImage: "p2.png",
-    category: "Lingerie",
-    sizes: ["S", "M", "L"],
-    stock: 10,
-    featured: true,
-  },
+// توابعی برای گرفتن دیتاهای مختلف
+export async function getProducts(): Promise<Product[]> {
+  return fetchAPI<Product[]>('/products/');
+}
 
-  {
-    id: "2",
-    slug: "silk-sleepwear",
-    name: "Silk Sleepwear",
-    description: "Soft silk sleepwear perfect for a luxurious night.",
-    price: 1200000,
-    image: "/p2.png",
-    hoverImage: "/p1.png",
-    category: "Sleepwear",
-    sizes: ["M", "L", "XL"],
-    stock: 7,
-    featured: true,
-  },
+export async function getProductBySlug(slug: string): Promise<Product> {
+  return fetchAPI<Product>(`/products/${slug}/`);
+}
 
-  {
-    id: "3",
-    slug: "classic-satin-bodysuit",
-    name: "Classic Satin Bodysuit",
-    description: "Minimal satin bodysuit with elegant fit and premium fabric.",
-    price: 950000,
-    image: "/p3.png",
-    hoverImage: "/p2.png",
-    category: "Bodysuit",
-    sizes: ["S", "M", "L"],
-    stock: 12,
-    featured: false,
-  },
-];
+// اضافه کردن تایپ دسته‌بندی در صورت نیاز، یا استفاده از any
+export async function getCategories(): Promise<{id: number | string, name: string}[]> {
+  return fetchAPI<{id: number | string, name: string}[]>('/categories/'); // آدرس API جنگو برای دسته‌بندی
+}
+

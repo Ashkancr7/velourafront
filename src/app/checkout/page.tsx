@@ -5,14 +5,19 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/store/cartStore";
 import { useCheckoutStore } from "@/store/checkoutStore";
-import { MapPin, ShoppingBag, ArrowRight, CreditCard } from "lucide-react";
+import { MapPin, ShoppingBag, ArrowRight, CreditCard, Loader2 } from "lucide-react";
 import Image from "next/image";
 
 export default function CheckoutPage() {
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
-  const items = useCartStore((state) => state.items);
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  // رفع خطای اول: فراخوانی بدون آرگومان
+  const { items } = useCartStore(); 
+  
+  // رفع خطای دوم: تبدیل مقادیر به عدد قبل از ضرب و جمع
+  const total = items.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0);
   
   const { shippingAddress, setShippingAddress } = useCheckoutStore();
 
@@ -60,16 +65,64 @@ export default function CheckoutPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (validateForm()) {
-      setShippingAddress(formData);
-      router.push("/payment");
+    if (!validateForm()) return;
+
+    setShippingAddress(formData);
+    setIsLoading(true);
+
+    try {
+      // فرض بر اینه که توکن رو تو لوکال استوریج ذخیره کردی. 
+      // اگر اسم کلیدش متفاوته، اینجا عوضش کن (مثلا access_token)
+      const token = localStorage.getItem("accessToken");
+
+       if (!token) {
+        alert("لطفاً ابتدا وارد حساب کاربری خود شوید.");
+        setIsLoading(false);
+        return;
+      }
+
+      const response = await fetch("https://api.theveloura.ir/api/orders/create/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}` 
+        },
+        body: JSON.stringify({
+          full_name: formData.fullName,
+          phone: formData.phone,
+          city: formData.city,
+          address: `استان ${formData.province}، ${formData.address}`, 
+          postal_code: formData.postalCode,
+          // 👇 این قسمت اضافه شد: ارسال آیتم‌های سبد خرید به بک‌اند
+          items: items.map((item) => ({
+             variant_id: item.id, // مطمئن شو که item.id اینجا همون آیدی ProductVariant در بک‌انده
+             quantity: item.quantity
+          }))
+        }),
+      });
+     
+
+      const data = await response.json();
+
+      if (response.ok && data.payment_url) { 
+        // چک کن کلیدی که بک‌اندت به عنوان لینک زرین‌پال برمی‌گردونه دقیقا چیه
+        // ممکنه link یا payment_url یا url باشه
+        window.location.href = data.payment_url; 
+      } else {
+        alert("خطا در اتصال به درگاه: " + (data.detail || "مشکلی پیش آمد"));
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      alert("خطا در ارتباط با سرور");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const shippingCost = total > 500000 ? 0 : 30000;
+  const shippingCost = total > 500000 ? 0 : 40000; // تو بک اند گذاشتی ۴۰ تومن، اینجا هم ۴۰ کردم که هماهنگ بشه
   const finalTotal = total + shippingCost;
 
   return (
@@ -98,6 +151,7 @@ export default function CheckoutPage() {
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleChange}
+                    disabled={isLoading}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#BFA46F]/20 focus:border-[#BFA46F] outline-none transition bg-gray-50 focus:bg-white text-sm sm:text-base ${
                       errors.fullName ? "border-red-500" : "border-gray-200"
                     }`}
@@ -114,6 +168,7 @@ export default function CheckoutPage() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
+                    disabled={isLoading}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#BFA46F]/20 focus:border-[#BFA46F] outline-none transition bg-gray-50 focus:bg-white text-sm sm:text-base ${
                       errors.phone ? "border-red-500" : "border-gray-200"
                     }`}
@@ -131,6 +186,7 @@ export default function CheckoutPage() {
                     name="province"
                     value={formData.province}
                     onChange={handleChange}
+                    disabled={isLoading}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#BFA46F]/20 focus:border-[#BFA46F] outline-none transition bg-gray-50 focus:bg-white text-sm sm:text-base ${
                       errors.province ? "border-red-500" : "border-gray-200"
                     }`}
@@ -147,6 +203,7 @@ export default function CheckoutPage() {
                     name="city"
                     value={formData.city}
                     onChange={handleChange}
+                    disabled={isLoading}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#BFA46F]/20 focus:border-[#BFA46F] outline-none transition bg-gray-50 focus:bg-white text-sm sm:text-base ${
                       errors.city ? "border-red-500" : "border-gray-200"
                     }`}
@@ -163,6 +220,7 @@ export default function CheckoutPage() {
                     name="postalCode"
                     value={formData.postalCode}
                     onChange={handleChange}
+                    disabled={isLoading}
                     maxLength={10}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#BFA46F]/20 focus:border-[#BFA46F] outline-none transition bg-gray-50 focus:bg-white text-sm sm:text-base ${
                       errors.postalCode ? "border-red-500" : "border-gray-200"
@@ -180,6 +238,7 @@ export default function CheckoutPage() {
                     name="address"
                     value={formData.address}
                     onChange={handleChange}
+                    disabled={isLoading}
                     rows={3}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#BFA46F]/20 focus:border-[#BFA46F] outline-none transition resize-none bg-gray-50 focus:bg-white text-sm sm:text-base ${
                       errors.address ? "border-red-500" : "border-gray-200"
@@ -195,17 +254,28 @@ export default function CheckoutPage() {
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="w-full sm:w-auto px-6 py-3.5 sm:py-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition flex items-center justify-center gap-2 font-medium text-sm sm:text-base"
+                disabled={isLoading}
+                className="w-full sm:w-auto px-6 py-3.5 sm:py-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition flex items-center justify-center gap-2 font-medium text-sm sm:text-base disabled:opacity-50"
               >
                 <ArrowRight size={18} />
                 بازگشت
               </button>
               <button
                 type="submit"
-                className="w-full sm:flex-1 bg-gray-900 text-white py-3.5 sm:py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#BFA46F] transition-colors duration-300 font-medium text-sm sm:text-base"
+                disabled={isLoading}
+                className="w-full sm:flex-1 bg-gray-900 text-white py-3.5 sm:py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#BFA46F] transition-colors duration-300 font-medium text-sm sm:text-base disabled:opacity-70 disabled:hover:bg-gray-900"
               >
-                ادامه و پرداخت
-                <CreditCard size={18} />
+                {isLoading ? (
+                  <>
+                    <Loader2 className="animate-spin" size={18} />
+                    در حال انتقال به درگاه...
+                  </>
+                ) : (
+                  <>
+                    ادامه و پرداخت
+                    <CreditCard size={18} />
+                  </>
+                )}
               </button>
             </div>
           </form>
@@ -252,7 +322,7 @@ export default function CheckoutPage() {
                     </div>
 
                     <p className="text-gray-600 text-[11px] sm:text-xs font-medium">
-                      {item.quantity} عدد × {item.price.toLocaleString("fa-IR")}
+                       {item.quantity.toLocaleString("fa-IR")} عدد × {Number(item.price).toLocaleString("fa-IR")}
                     </p>
                   </div>
                 </div>

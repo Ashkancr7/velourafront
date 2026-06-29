@@ -6,19 +6,19 @@ export default function Footer() {
   return (
     <footer className="bg-[#1a1a1a] text-white mt-20 border-t border-[#BFA46F]/20">
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-12">
-        
+
         {/* Brand */}
         <div className="col-span-2 md:col-span-1">
-           <Link href="/" className="flex items-center transition-opacity hover:opacity-80">
-          <Image
-            src="/logo1.png" // آدرس عکست که توی پوشه public گذاشتی
-            alt="Veloura Logo"
-            width={150} // عرض عکس (بسته به لوگوت تغییرش بده)
-            height={60} // ارتفاع عکس
-            className="object-contain"
-            priority // چون لوگو هست، میگیم سریع لود بشه
-          />
-        </Link>
+          <Link href="/" className="flex items-center transition-opacity hover:opacity-80">
+            <Image
+              src="/logo1.png" // آدرس عکست که توی پوشه public گذاشتی
+              alt="Veloura Logo"
+              width={150} // عرض عکس (بسته به لوگوت تغییرش بده)
+              height={60} // ارتفاع عکس
+              className="object-contain"
+              priority // چون لوگو هست، میگیم سریع لود بشه
+            />
+          </Link>
           {/* خط طلایی امضای برند */}
           <div className="w-48 h-[1px] bg-[#BFA46F] mb-6 opacity-70"></div>
           <p className="text-gray-400 text-sm leading-relaxed max-w-xs font-light">
@@ -49,22 +49,60 @@ export default function Footer() {
         </div>
 
         {/* Social */}
-                
+
         <div>
           <h3 className="mb-5 text-sm font-medium tracking-wide text-gray-200">شبکه‌های اجتماعی</h3>
           <div className="flex flex-col gap-4 text-sm text-gray-400 font-light">
-            <a href="#" className="group flex items-center gap-2 hover:text-[#BFA46F] transition-colors duration-300">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition-transform"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            <a
+              href="https://www.instagram.com/veloura_shop13"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 hover:text-[#BFA46F] transition-colors duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="group-hover:scale-110 transition-transform"
+              >
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+              </svg>
               Instagram
             </a>
-            <a href="#" className="group flex items-center gap-2 hover:text-[#BFA46F] transition-colors duration-300">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition-transform"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+
+            <a
+              href="https://t.me/veloura_shop13"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 hover:text-[#BFA46F] transition-colors duration-300"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition-transform">
+                <path d="m22 2-7 20-4-9-9-4Z" />
+                <path d="M22 2 11 13" />
+              </svg>
               Telegram
             </a>
-            <a href="#" className="group flex items-center gap-2 hover:text-[#BFA46F] transition-colors duration-300">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition-transform"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+
+            <a
+              href="https://wa.me/9910616048"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 hover:text-[#BFA46F] transition-colors duration-300"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition-transform">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
               WhatsApp
             </a>
+
           </div>
         </div>
 

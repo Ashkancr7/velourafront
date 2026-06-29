@@ -3,13 +3,14 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface Product {
-  id: string;
+  id: number;
   name: string;
-  price: number;
+  price: string;
   size?: string;
   color?: string; // اضافه شدن رنگ
   image?: string;
   slug?: string;
+  variantId?: number;
 }
 
 interface CartItem extends Product {
@@ -19,10 +20,11 @@ interface CartItem extends Product {
 interface CartState {
   items: CartItem[];
   addToCart: (product: Product) => void;
-  removeFromCart: (id: string, size?: string, color?: string) => void;
-  increaseQty: (id: string, size?: string, color?: string) => void;
-  decreaseQty: (id: string, size?: string, color?: string) => void;
-  updateQty: (id: string, size: string | undefined, color: string | undefined, quantity: number) => void;
+  // این پایین id ها رو کردم number 👇😎
+  removeFromCart: (id: number, size?: string, color?: string) => void;
+  increaseQty: (id: number, size?: string, color?: string) => void;
+  decreaseQty: (id: number, size?: string, color?: string) => void;
+  updateQty: (id: number, size: string | undefined, color: string | undefined, quantity: number) => void;
   clearCart: () => void;
   totalPrice: () => number;
 }
@@ -109,7 +111,7 @@ export const useCartStore = create<CartState>()(
 
       totalPrice: () => {
         const { items } = get();
-        return items.reduce((total, item) => total + item.price * item.quantity, 0);
+         return items.reduce((total, item) => total + Number(item.price) * item.quantity, 0);
       },
     }),
     {

@@ -21,7 +21,7 @@ export default function CartPage() {
 
   if (!isMounted) return null;
 
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = items.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0);
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
   if (items.length === 0) {
@@ -64,7 +64,7 @@ export default function CartPage() {
                     className="object-cover"
                   />
                 </div>
-                
+
                 {/* تیتر و سطل زباله برای حالت موبایل که میره کنار عکس */}
                 <div className="flex-1 sm:hidden">
                   <div className="flex justify-between items-start">
@@ -93,7 +93,7 @@ export default function CartPage() {
                       {item.color && (
                         <div className="flex items-center gap-2 text-sm text-gray-600">
                           <span>رنگ:</span>
-                          <span 
+                          <span
                             className="w-4 h-4 rounded-full border border-gray-200 shadow-sm"
                             style={{ backgroundColor: item.color }}
                           />
@@ -120,7 +120,7 @@ export default function CartPage() {
                   {item.color && (
                     <div className="flex items-center gap-1 text-xs text-gray-600">
                       <span>رنگ:</span>
-                      <span 
+                      <span
                         className="w-3 h-3 rounded-full border border-gray-200 shadow-sm"
                         style={{ backgroundColor: item.color }}
                       />
@@ -130,7 +130,7 @@ export default function CartPage() {
 
                 {/* قیمت و دکمه‌ها که تو موبایل روی هم قرار میگیرن (wrap میشن) */}
                 <div className="flex flex-wrap items-center justify-between gap-4 mt-auto">
-                  <div className="flex items-center gap-2 sm:gap-3 border rounded-lg bg-gray-50/50">
+                  {/* <div className="flex items-center gap-2 sm:gap-3 border rounded-lg bg-gray-50/50">
                     <button
                       onClick={() => decreaseQty(item.id, item.size, item.color)}
                       disabled={item.quantity <= 1}
@@ -149,15 +149,18 @@ export default function CartPage() {
                     >
                       <Plus size={16} className="sm:w-[18px] sm:h-[18px]" />
                     </button>
-                  </div>
+                  </div> */}
 
                   <div className="text-left">
                     <p className="text-lg sm:text-xl font-bold text-[#BFA46F]">
-                      {(item.price * item.quantity).toLocaleString("fa-IR")} تومان
+                      {/* اینجا تبدیل به عدد را انجام دهید */}
+                      {(Number(item.price) * Number(item.quantity)).toLocaleString("fa-IR")} تومان
                     </p>
+
                     {item.quantity > 1 && (
                       <p className="text-xs sm:text-sm text-gray-500 mt-1">
-                        {item.price.toLocaleString("fa-IR")} × {item.quantity}
+                        {/* اینجا هم همینطور */}
+                        {Number(item.price).toLocaleString("fa-IR")} × {item.quantity.toLocaleString("fa-IR")}
                       </p>
                     )}
                   </div>
@@ -171,11 +174,11 @@ export default function CartPage() {
         <div className="lg:col-span-1 mt-4 lg:mt-0">
           <div className="border border-gray-100 rounded-xl p-5 sm:p-6 bg-gray-50/50 sticky top-24 shadow-sm">
             <h2 className="text-lg font-medium mb-5 sm:mb-6">خلاصه سفارش</h2>
-            
+
             <div className="space-y-3 text-sm mb-5 sm:mb-6 pb-5 sm:pb-6 border-b border-gray-200">
               <div className="flex justify-between">
                 <span className="text-gray-600">تعداد کل محصولات</span>
-                <span className="font-medium">{totalItems} عدد</span>
+                <span className="font-medium">{totalItems.toLocaleString("fa-IR")} عدد</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">جمع کل</span>
