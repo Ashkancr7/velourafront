@@ -100,7 +100,7 @@ export default async function HomePage() {
 
       {/* FEATURED PRODUCTS SECTION */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-20">
-        <div className="flex items-end justify-between mb-8 md:mb-14">
+        <div className="flex flex-col md:flex-row items-center md:items-end justify-between mb-8 md:mb-14 gap-6">
           <div>
             <h2 className="text-xl md:text-3xl font-light text-gray-900">
               محصولات <span className="text-[#BFA46F] font-medium">منتخب</span>
@@ -109,17 +109,17 @@ export default async function HomePage() {
           </div>
 
           <Link
-  href="/shop"
-  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[#BFA46F] px-6 py-2.5 text-sm font-semibold text-[#BFA46F] transition-all duration-500"
->
-  <span className="absolute inset-0 -translate-x-full bg-[#BFA46F] transition-transform duration-500 group-hover:translate-x-0"></span>
+            href="/shop"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[#BFA46F] px-6 py-2.5 text-sm font-semibold text-[#BFA46F] transition-all duration-500"
+          >
+            <span className="absolute inset-0 -translate-x-full bg-[#BFA46F] transition-transform duration-500 group-hover:translate-x-0"></span>
 
-  <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
-    مشاهده همه محصولات
-  </span>
+            <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
+              مشاهده همه محصولات
+            </span>
 
-  <ChevronLeft className="relative z-10 h-4 w-4 transition-all duration-500 group-hover:-translate-x-1 group-hover:text-white" />
-</Link>
+            <ChevronLeft className="relative z-10 h-4 w-4 transition-all duration-500 group-hover:-translate-x-1 group-hover:text-white" />
+          </Link>
         </div>
 
         {/* گرید محصولات - بهینه برای موبایل */}
